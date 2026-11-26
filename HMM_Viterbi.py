@@ -77,7 +77,6 @@ def calculate_transition_probabilities(labels):
     for i in range(len(labels) - 1):
         current_state = labels[i]
         next_state = labels[i + 1]
-
         counts[current_state][next_state] += 1
 
     # Calculate probabilities
@@ -85,7 +84,6 @@ def calculate_transition_probabilities(labels):
 
     for state in states:
         total = sum(counts[state].values())
-
         transition_matrix[state] = {}
 
         for next_state in states:
@@ -116,7 +114,6 @@ def calculate_emission_probabilities(sequence, labels):
 
     for state in states:
         total = sum(counts[state].values())
-
         emission_matrix[state] = {}
 
         for nucleotide in nucleotides:
@@ -146,7 +143,6 @@ def viterbi(sequence, transition_matrix, emission_matrix, initial_probabilities)
 
     states = ["C", "N"]
     nucleotides = ["A", "T", "G", "C"]
-
     length = len(sequence)
 
     def log_probability(probability):
@@ -178,7 +174,6 @@ def viterbi(sequence, transition_matrix, emission_matrix, initial_probabilities)
     for i in range(1, length):
 
         nucleotide = sequence[i]
-
         current = {}
 
         for state in states:
@@ -251,13 +246,10 @@ def calculate_metrics(actual_states, predicted_states):
 
         if actual == "C" and predicted == "C":
             true_positive += 1
-
         elif actual == "N" and predicted == "C":
             false_positive += 1
-
         elif actual == "C" and predicted == "N":
             false_negative += 1
-
         elif actual == "N" and predicted == "N":
             true_negative += 1
 
@@ -296,23 +288,23 @@ def calculate_metrics(actual_states, predicted_states):
 # print("First 200 DNA nucleotides:", sequence[:200])
 # print("First 200 states:", "".join(labels[:200]))
 
-# Display transition results
-print("\nTransition Counts:")
-for state, transitions in transition_counts.items():
-    print(state, transitions)
+# # Display transition results
+# print("\nTransition Counts:")
+# for state, transitions in transition_counts.items():
+#     print(state, transitions)
 
-print("\nTransition Probability Matrix:")
-for state, transitions in transition_matrix.items():
-    print(state, transitions)
+# print("\nTransition Probability Matrix:")
+# for state, transitions in transition_matrix.items():
+#     print(state, transitions)
 
-# Display emission results
-print("\nEmission Counts:")
-for state, emissions in emission_counts.items():
-    print(state, emissions)
+# # Display emission results
+# print("\nEmission Counts:")
+# for state, emissions in emission_counts.items():
+#     print(state, emissions)
 
-print("\nEmission Probability Matrix:")
-for state, emissions in emission_matrix.items():
-    print(state, emissions)
+# print("\nEmission Probability Matrix:")
+# for state, emissions in emission_matrix.items():
+#     print(state, emissions)
 
 predicted_labels = viterbi(
     sequence,
